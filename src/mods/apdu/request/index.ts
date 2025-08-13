@@ -46,7 +46,7 @@ export class ApduRequest<T extends Writable> {
     return 1 + 1 + 1 + 1 + 1 + this.fragmentSize
   }
 
-  writeOrThrow(cursor: Cursor) {
+  writeOrThrow(cursor: Cursor<ArrayBuffer>) {
     cursor.writeUint8OrThrow(this.cla)
     cursor.writeUint8OrThrow(this.ins)
     cursor.writeUint8OrThrow(this.p1)

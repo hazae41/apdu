@@ -13,9 +13,10 @@ export type ApduResponse<T extends Writable> =
 
 export namespace ApduResponse {
 
-  export function readOrThrow(cursor: Cursor) {
-    const bytes = cursor.readAndCopyOrThrow(cursor.remaining - 2)
+  export function readOrThrow(cursor: Cursor<ArrayBuffer>) {
+    const bytes = new Uint8Array(cursor.readOrThrow(cursor.remaining - 2))
     const status = cursor.readUint16OrThrow()
+
     const fragment = new Opaque(bytes)
 
     if (status === ApduOk.status)
